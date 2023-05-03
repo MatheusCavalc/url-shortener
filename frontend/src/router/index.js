@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Auth/LoginView.vue';
 import RegisterView from '../views/Auth/RegisterView.vue';
+import DashboardView from '../views/Dashboard/DashboardView.vue';
 import LinksView from '../views/Dashboard/LinksView.vue';
 import CreateLink from '../views/Dashboard/CreateLink.vue';
 
@@ -44,6 +45,20 @@ const routes = [
       if (authUser) {
         return next({
           name: 'links'
+        })
+      }
+
+      next()
+    }
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: DashboardView,
+    beforeEnter: (to, from, next) => {
+      if (!authUser) {
+        return next({
+          name: 'home'
         })
       }
 
