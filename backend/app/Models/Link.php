@@ -13,7 +13,8 @@ class Link extends Model
         'user_id',
         'destination',
         'title',
-        'back_half'
+        'back_half',
+        'redirect_count'
     ];
 
 

@@ -1,12 +1,5 @@
 <script setup>
 import MainLayout from '@/layouts/MainLayout.vue';
-import { ref } from 'vue';
-
-const showDiv = ref(false)
-
-const change = () => {
-  showDiv.value = !showDiv.value
-}
 </script>
 
 <template>

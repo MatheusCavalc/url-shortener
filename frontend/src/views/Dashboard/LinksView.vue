@@ -78,7 +78,7 @@ onMounted(getLinks)
                         <p>{{ link.title }}</p>
                         <p class="my-2 text-sm text-orange-400">127.0.0.1:8000/<span class="text-orange-500 font-semibold">
                                 {{ link.back_half }}
-                           </span> 
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -113,40 +113,103 @@ onMounted(getLinks)
                         </div>
                     </div>
 
-                    <div class="flex justify-between my-5 rounded bg-white px-8 pt-4 pb-8 ml-2 mr-8">
-                        <div>
-                            <div class="my-4 text-xl font-bold">
-                                <a :href="'http://127.0.0.1:8000/' + back_half"
-                                    class="my-4 text-xl font-bold text-blue-700">127.0.0.1:8000/{{ back_half }}</a>
+                    <div class="my-5 rounded bg-white px-8 pt-4 pb-8 ml-2 mr-8">
+                        <div class="flex justify-between">
+                            <div>
+                                <div class="my-4 text-xl font-bold">
+                                    <a :href="'http://127.0.0.1:8000/' + back_half"
+                                        class="my-4 text-xl font-bold text-blue-700">127.0.0.1:8000/{{ back_half }}</a>
+                                </div>
+                                <div class="flex justify-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" />
+                                    </svg>
+
+                                    <a :href="destination" class="mx-2">{{ destination }}</a>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                    </svg>
+
+                                    <p class="ml-1 text-gray-400">Redirect</p>
+                                </div>
                             </div>
-                            <div class="flex justify-start">
+
+                            <div
+                                class="flex justify-start bg-gray-200 mt-4 h-11 cursor-pointer px-3 rounded hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="w-5 h-5">
+                                    stroke="currentColor" class="w-5 h-5 mt-2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" />
+                                        d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
                                 </svg>
 
-                                <a :href="destination" class="mx-2">{{ destination }}</a>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                                </svg>
-
+                                <p class="pl-2 mt-2.5 mb-2 mr-2 text-sm font-medium text-black">Copy</p>
                             </div>
                         </div>
 
-                        <div
-                            class="flex justify-start bg-gray-200 mt-4 h-11 cursor-pointer px-3 rounded hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div>
+                                <p class="font-bold text-xl">QR Code</p>
+
+                                <div class="flex justify-start mt-3">
+                                    <div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="#d3d5db" class="w-24 h-24">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button type="button"
+                                            class="px-2 py-2 mb-2 ml-4 text-sm font-medium text-black bg-white border border-gray-500 rounded-lg hover:bg-gray-200">Create
+                                            QR Code</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="font-bold text-xl">Link-in-bio</p>
+
+                                <div class="flex justify-start mt-3">
+                                    <div>
+                                        <div
+                                            class="focus:outline-none text-gray-400 bg-gray-200 focus:ring-4 font-2xl rounded-full text-sm px-9 py-8 mr-2 mb-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-8 h-9">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button type="button"
+                                            class="px-2 py-2 mb-2 ml-4 text-sm font-medium text-black bg-white border border-gray-500 rounded-lg hover:bg-gray-200">Create
+                                            a Link-in-bio</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-start">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-5 h-5 mt-2.5">
+                                stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                                    d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
                             </svg>
 
-
-                            <p class="pl-2 mt-2.5 mb-2 mr-2 text-sm font-medium text-black">Copy</p>
+                            <p class="text-gray-500 ml-2">No Tags</p>
                         </div>
                     </div>
                 </div>
@@ -186,5 +249,5 @@ onMounted(getLinks)
                     <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
                 </div>
             </div>-->
-        </div>
-    </DashboardLayout></template>
+    </div>
+</DashboardLayout></template>

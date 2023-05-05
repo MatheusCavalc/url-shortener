@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('destination');
             $table->string('title');
             $table->string('back_half')->unique();
+            $table->float('redirect_count')->default(0);
             $table->timestamps();
         });
     }
