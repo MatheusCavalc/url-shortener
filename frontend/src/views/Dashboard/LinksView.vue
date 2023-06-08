@@ -56,7 +56,7 @@ onMounted(getLinks)
             </div>
             -->
 
-            <div class="ml-3 mb-3 mt-7">
+            <div class="ml-3 mb-3 mt-14">
                 <p class="text-3xl font-bold">Links</p>
 
                 <button type="button"

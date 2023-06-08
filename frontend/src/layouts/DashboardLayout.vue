@@ -1,6 +1,6 @@
 <script setup>
-const classLinkSelected = 'flex items-center p-2 text-blue-900 border border-blue-900 rounded-lg dark:text-white bg-gray-200 dark:hover:bg-gray-700'
-const classLinkUnselectd = 'flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+import SideBar from '@/components/sidebar/SideBar.vue';
+import { contentWidth, navbarWidth } from '@/components/sidebar/state.js'
 
 </script>
 
@@ -16,7 +16,9 @@ const classLinkUnselectd = 'flex items-center p-2 text-gray-900 rounded-lg dark:
         </svg>
     </button>
 
-    <aside id="default-sidebar"
+    <SideBar />
+    <!--
+        <aside id="default-sidebar"
         class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 border-r border-r-gray-300"
         aria-label="Sidebar">
         <div class="px-3 py-4">
@@ -63,7 +65,7 @@ const classLinkUnselectd = 'flex items-center p-2 text-gray-900 rounded-lg dark:
                         </div>
                     </router-link>
                 </li>
-                <!--
+
                 <li>
                     <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -82,14 +84,26 @@ const classLinkUnselectd = 'flex items-center p-2 text-gray-900 rounded-lg dark:
                             class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
                     </a>
                 </li>
-                -->
             </ul>
+
+            <div class="mt-10">
+                <button type="button"
+                    class="border font-2xl rounded-full text-sm px-2 py-2 mr-2 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </aside>
+    -->
 
-    <div class="sm:ml-64">
-        <div class="border-gray-200 dark:border-gray-700">
-            <div class="grid grid-cols-3 gap-4 mb-4 border-b border-b-gray-200">
+
+    <div :class="contentWidth" class="div-content">
+        <div class="div-content bg-white border-gray-200 dark:border-gray-700 fixed top-0 right-0" :class="navbarWidth">
+            <div class="grid grid-cols-3 gap-4 border-b border-b-gray-200">
                 <div class="flex items-center justify-center h-12 rounded bg-white"></div>
 
                 <div class="col-span-2 flex items-center justify-center h-12 mt-2 rounded bg-white dark:bg-gray-800">
@@ -105,3 +119,9 @@ const classLinkUnselectd = 'flex items-center p-2 text-gray-900 rounded-lg dark:
         <slot />
     </div>
 </template>
+
+<style scoped>
+.div-content {
+    transition: 0.3s ease;
+}
+</style>
