@@ -12,7 +12,6 @@ const getLinks = () => {
             links.value = response.data
             links.value.length == 0 ? links_empty.value = true : links_empty.value = false
             linkDetails(links.value[0].id)
-            console.log(response)
         })
 }
 

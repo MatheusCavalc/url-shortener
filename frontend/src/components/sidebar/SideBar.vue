@@ -59,20 +59,10 @@ const classLinkUnselectdCol = 'text-blue-900 font-medium rounded-lg text-sm w-fu
                 </ul>
             </div>
 
-            <div class="mt-10 ml-2">
-                <button @click="toggleSidebar" type="button"
-                    class="border font-2xl rounded-full text-sm px-2 py-2 mr-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-                    </svg>
-                </button>
-            </div>
         </div>
 
 
-        <div v-else>
+        <div v-else class="overflow-hidden">
             <div class="px-3 py-4">
                 <router-link to="/links">
                     <h1>LOGO</h1>
@@ -120,16 +110,16 @@ const classLinkUnselectdCol = 'text-blue-900 font-medium rounded-lg text-sm w-fu
                 </ul>
             </div>
 
-            <div class="mt-10 ml-2">
-                <button @click="toggleSidebar" type="button"
-                    class="border font-2xl rounded-full text-sm px-2 py-2 mr-2 mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
-                    </svg>
-                </button>
-            </div>
+        </div>
+
+        <div class="mt-10 ml-2">
+            <button @click="toggleSidebar" type="button" :class="{ 'rotation-180' : collapsed }" class="collapse-icon border font-2xl rounded-full text-sm px-2 py-2 mr-2 mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-4 h-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
+                </svg>
+            </button>
         </div>
     </aside>
 </template>
@@ -151,5 +141,13 @@ const classLinkUnselectdCol = 'text-blue-900 font-medium rounded-lg text-sm w-fu
 
     display: flex;
     flex-direction: column;
+}
+.collapse-icon {
+    transition: 0.2s linear;
+}
+
+.rotation-180 {
+    transform: rotate(180deg);
+    transition: 0.2s linear;
 }
 </style>

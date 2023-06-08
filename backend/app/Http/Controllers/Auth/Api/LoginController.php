@@ -18,7 +18,6 @@ class LoginController extends Controller
         return response()->json([
             'data' => [
                 'token' => $token->plainTextToken,
-                'user_name' => auth()->user()->name,
             ]
         ]);
     }
@@ -31,5 +30,15 @@ class LoginController extends Controller
 
         return response()
             ->json([], 204);
+    }
+
+    public function infos()
+    {
+        return response()->json(
+            [
+                'user' => auth()->user()->name,
+                'email' => auth()->user()->email
+            ]
+        );
     }
 }

@@ -26,6 +26,16 @@ export function login(parameters) {
     });
 }
 
+export function logout() {
+    event.preventDefault()
+    axios.post(url + 'auth/logout').then((response) => {
+        localStorage.removeItem('bearerToken');
+        window.location.replace('/');
+    }).catch(error => {
+        console.log(error)
+    });
+}
+
 export function create_link(parameters) {
     event.preventDefault()
     axios.post(url + 'links', parameters).then((response) => {
