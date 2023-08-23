@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import DashboardLayout from '@/layouts/DashboardLayout.vue';
+import SideLayout from '@/layouts/SideLayout.vue';
 import axios from 'axios';
 
 let links = ref('')
@@ -15,47 +15,32 @@ const getLinks = () => {
         })
 }
 
-let title = ref('')
-let created_at = ref('')
 let user = ref('')
-
-let back_half = ref('')
-let destination = ref('')
+let linkInfos = ref([])
 let loading = ref(false)
 
 const linkDetails = (id) => {
     axios.get('http://127.0.0.1:8000/api/links/' + id)
         .then((response) => {
-            title.value = response.data.link.title
-            created_at.value = response.data.link.created_at
+            linkInfos.value = response.data.link
             user.value = links.value[0].user.name
-            back_half.value = response.data.link.back_half
-            destination.value = response.data.link.destination
             loading.value = true
-            //console.log(response.data.link)
         })
+}
+
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('default', { dateStyle: 'medium' }).format(date);
 }
 
 onMounted(getLinks)
 </script>
 
 <template>
-    <DashboardLayout>
+    <SideLayout>
         <div class="border-gray-200 dark:border-gray-700">
-            <!--<div class="grid grid-cols-3 gap-4 mb-4">
-                <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-            </div>
-            -->
 
-            <div class="ml-3 mb-3 mt-14">
+            <div class="ml-3 mb-3 mt-2">
                 <p class="text-3xl font-bold">Links</p>
 
                 <button type="button"
@@ -69,11 +54,11 @@ onMounted(getLinks)
                 </router-link>
             </div>
 
-            <div v-else class="grid grid-cols-3 gap-4 mb-4 h-screen bg-gray-100 border-t border-gray-200">
-                <div class="pt-4 rounded h-24">
-                    <div class="mb-3 pl-10 py-3 bg-white cursor-pointer" v-for="link in links" :key="link.id"
-                        @click="linkDetails(link.id)">
-                        <p>{{ link.created_at }}</p>
+            <div v-else class="md:grid md:grid-cols-3 md:gap-4 mb-4 pb-4 bg-gray-100 border-t border-gray-200">
+                <div class="pt-4 rounded">
+                    <div v-for="link in links" :key="link.id" @click="linkDetails(link.id)"
+                        class="mb-3 pl-10 py-3 bg-white cursor-pointer h-24">
+                        <p>{{ formatDate(link.created_at) }}</p>
                         <p>{{ link.title }}</p>
                         <p class="my-2 text-sm text-orange-400">127.0.0.1:8000/<span class="text-orange-500 font-semibold">
                                 {{ link.back_half }}
@@ -82,10 +67,10 @@ onMounted(getLinks)
                     </div>
                 </div>
 
-                <div v-if="loading" class="col-span-2 border-l border-gray-200">
-                    <div class="flex justify-between my-8 rounded bg-white px-8 pt-4 pb-8 ml-2 mr-8">
+                <div class="md:col-span-2 border-l border-gray-200">
+                    <div class="flex justify-between my-8 rounded bg-white px-8 pt-4 pb-8 mx-2 md:mr-8">
                         <div>
-                            <p class="font-bold text-3xl">{{ title }}</p>
+                            <p class="font-bold text-3xl">{{ linkInfos.title }}</p>
                             <div class="flex justify-start">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -95,13 +80,13 @@ onMounted(getLinks)
                                     </svg>
                                 </span>
                                 <p class="pt-4">
-                                    {{ created_at }} by {{ user }}
+                                    {{ linkInfos.created_at }} by {{ user }}
                                 </p>
                             </div>
                         </div>
 
                         <div
-                            class="flex justify-start bg-gray-200 h-11 cursor-pointer px-3 rounded hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            class="flex justify-start bg-gray-200 h-11 cursor-pointer px-3 rounded hover:bg-gray-400 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5 mt-2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -112,12 +97,12 @@ onMounted(getLinks)
                         </div>
                     </div>
 
-                    <div class="my-5 rounded bg-white px-8 pt-4 pb-8 ml-2 mr-8">
+                    <div class="my-5 rounded bg-white px-8 pt-4 pb-8 mx-2 md:mr-8">
                         <div class="flex justify-between">
                             <div>
                                 <div class="my-4 text-xl font-bold">
-                                    <a :href="'http://127.0.0.1:8000/' + back_half"
-                                        class="my-4 text-xl font-bold text-blue-700">127.0.0.1:8000/{{ back_half }}</a>
+                                    <a :href="'http://127.0.0.1:8000/' + linkInfos.back_half"
+                                        class="my-4 text-xl font-bold text-blue-700">127.0.0.1:8000/{{ linkInfos.back_half }}</a>
                                 </div>
                                 <div class="flex justify-start">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -126,7 +111,7 @@ onMounted(getLinks)
                                             d="M4.5 4.5l15 15m0 0V8.25m0 11.25H8.25" />
                                     </svg>
 
-                                    <a :href="destination" class="mx-2">{{ destination }}</a>
+                                    <a :href="linkInfos.destination" class="mx-2">{{ linkInfos.destination }}</a>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -139,7 +124,7 @@ onMounted(getLinks)
                             </div>
 
                             <div
-                                class="flex justify-start bg-gray-200 mt-4 h-11 cursor-pointer px-3 rounded hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                class="flex justify-start bg-gray-200 mt-4 h-11 cursor-pointer px-3 rounded hover:bg-gray-400 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                     stroke="currentColor" class="w-5 h-5 mt-2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -151,7 +136,7 @@ onMounted(getLinks)
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="md:grid md:grid-cols-2 gap-4 mt-8">
                             <div>
                                 <p class="font-bold text-xl">QR Code</p>
 
@@ -159,7 +144,7 @@ onMounted(getLinks)
                                     <div>
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="#d3d5db" class="w-24 h-24">
+                                                stroke-width="1.5" stroke="#d3d5db" class="w-20 h-20 md:w-24 md:h-24">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -182,9 +167,9 @@ onMounted(getLinks)
                                 <div class="flex justify-start mt-3">
                                     <div>
                                         <div
-                                            class="focus:outline-none text-gray-400 bg-gray-200 focus:ring-4 font-2xl rounded-full text-sm px-9 py-8 mr-2 mb-2">
+                                            class="focus:outline-none text-gray-400 bg-gray-200 focus:ring-4 font-2xl w-20 h-20 md:w-24 md:h-24 rounded-full text-sm p-6 md:p-8 mr-2 mb-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-8 h-9">
+                                                stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                                             </svg>
@@ -213,40 +198,6 @@ onMounted(getLinks)
                     </div>
                 </div>
             </div>
-
-            <!--<div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-            </div>
-            <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-                <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                    <p class="text-2xl text-gray-400 dark:text-gray-500">+</p>
-                </div>
-            </div>-->
-    </div>
-</DashboardLayout></template>
+        </div>
+    </SideLayout>
+</template>

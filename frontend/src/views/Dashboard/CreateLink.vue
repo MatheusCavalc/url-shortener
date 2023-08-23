@@ -1,5 +1,5 @@
 <script setup>
-import DashboardLayout from '@/layouts/DashboardLayout.vue';
+import SideLayout from '@/layouts/SideLayout.vue';
 import { create_link } from '@/services/functions'
 import { ref } from 'vue';
 
@@ -22,8 +22,8 @@ const submit = () => {
 </script>
 
 <template>
-    <DashboardLayout>
-        <div class="mt-16 mx-32">
+    <SideLayout>
+        <div class="mt-16 mx-5 md:mx-32">
             <p class="text-3xl font-bold">Create New</p>
 
             <div class="mt-5">
@@ -66,5 +66,5 @@ const submit = () => {
             </div>
 
         </div>
-    </DashboardLayout>
+    </SideLayout>
 </template>
