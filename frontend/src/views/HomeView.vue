@@ -6,10 +6,10 @@ import MainLayout from '@/layouts/MainLayout.vue';
   <MainLayout>
     <div class="bg-home">
       <div class="border-gray-200 dark:border-gray-700 grid grid-cols-5 gap-4 place-content-center h-[450px]">
-        <div class="col-span-3">
-          <p class="text-4xl font-bold">We’ve expanded!</p>
-          <p class="text-4xl font-bold">Shorten URLs. Generate QR Codes. </p>
-          <p class="text-4xl font-bold">And now, create Link-in-bios.</p>
+        <div class="col-span-3 mt-64 md:mt-0 ml-3 md:ml-0">
+          <p class="text-xl md:text-4xl font-bold">We’ve expanded!</p>
+          <p class="text-xl md:text-4xl font-bold">Shorten URLs. Generate QR Codes. </p>
+          <p class="text-xl md:text-4xl font-bold">And now, create Link-in-bios.</p>
         </div>
 
         <div class="text-center col-span-2"></div>

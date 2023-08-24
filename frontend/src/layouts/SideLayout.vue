@@ -31,7 +31,7 @@ const open1 = ref(false)
                         </button>
                         <router-link to="/" class="flex ml-2 md:mr-24">
                             <span
-                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Logo</span>
+                                class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">URL Shortener</span>
                         </router-link>
                     </div>
                     <div class="flex items-center">
