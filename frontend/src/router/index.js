@@ -5,6 +5,7 @@ import RegisterView from '../views/Auth/RegisterView.vue';
 import DashboardView from '../views/Dashboard/DashboardView.vue';
 import LinksView from '../views/Dashboard/LinksView.vue';
 import CreateLink from '../views/Dashboard/CreateLink.vue';
+import EditLink from '../views/Dashboard/EditLink.vue';
 
 let authUser = localStorage.getItem("bearerToken") === null ? false : true
 
@@ -93,6 +94,20 @@ const routes = [
       next()
     }
   },
+  {
+    path: '/edit/:id',
+    name: 'edit-links',
+    component: EditLink,
+    beforeEnter: (to, from, next) => {
+      if (!authUser) {
+        return next({
+          name: 'home'
+        })
+      }
+
+      next()
+    }
+  }
 ]
 
 const router = createRouter({

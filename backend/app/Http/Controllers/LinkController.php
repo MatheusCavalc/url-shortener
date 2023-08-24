@@ -38,6 +38,23 @@ class LinkController extends Controller
         ]);
     }
 
+    public function update(Link $link, Request $request)
+    {
+        $request->request->add(['user_id' => auth()->user()->id]);
+
+        $requestData = $request->all();
+        $response = [];
+        $validation = $this->validation($request->all());
+
+        if (!is_array($validation)) {
+            $link->update($requestData);
+            array_push($response, ['status' => 'success']);
+            return response()->json($response, 200);
+        } else {
+            return response()->json($validation, 400);
+        }
+    }
+
     public function validation($params)
     {
         $response = [];

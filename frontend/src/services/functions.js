@@ -46,3 +46,14 @@ export function create_link(parameters) {
         console.log(error)
     });
 }
+
+export function edit_link(id, parameters) {
+    event.preventDefault()
+    axios.put(url + 'links/' + id, parameters).then((response) => {
+        if (response.data[0].status == 'success') {
+            router.push('/links')
+        }
+    }).catch(error => {
+        console.log(error)
+    });
+}

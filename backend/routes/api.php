@@ -32,5 +32,5 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::apiResource('links', LinkController::class)
-    ->only(['index','store', 'show'])
+    ->only(['index','store', 'show', 'update'])
     ->middleware('auth:sanctum');
